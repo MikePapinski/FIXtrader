@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : Composite
+    // SCOPE : imported to all the schemas
+    // DESCRIPTION : Generic complex data types used across all the schemas
+    //------------------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Main header decoded every time for msg recognition
+    //--------------------------------------------------------
+    <composite name="messageHeader" description="Message identifiers and length of message root.">
+        <type name="blockLength" primitiveType="uint16"/>
+        <type name="templateId" primitiveType="uint16"/>
+        <type name="schemaId" primitiveType="uint16"/>
+        <type name="version" primitiveType="uint16"/>
+        <type name="decodeTimestamp" primitiveType="int64"/>
+    </composite>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : No idea, never used...
+    //--------------------------------------------------------
+    <composite name="groupSizeEncoding" description="Repeating group dimensions.">
+        <type name="blockLength" primitiveType="uint16"/>
+        <type name="numInGroup" primitiveType="uint16"/>
+    </composite>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Some format of string but not sure
+    //--------------------------------------------------------
+    <composite name="varStringEncoding" description="Variable length UTF-8 String.">
+        <type name="length" primitiveType="uint32" maxValue="1073741824"/>
+        <type name="varData" primitiveType="uint8" length="0" characterEncoding="UTF-8"/>
+    </composite>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Some format of string but not sure
+    //--------------------------------------------------------
+    <composite name="varAsciiEncoding" description="Variable length ASCII String.">
+        <type name="length" primitiveType="uint32" maxValue="1073741824"/>
+        <type name="varData" primitiveType="uint8" length="0" characterEncoding="ASCII"/>
+    </composite>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : No idea, never used...
+    //--------------------------------------------------------
+    <composite name="varDataEncoding" description="Variable length binary blob.">
+        <type name="length" primitiveType="uint32" maxValue="1073741824"/>
+        <type name="varData" primitiveType="uint8" length="0"/>
+    </composite>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : Custom variables
+    // SCOPE : imported to all the schemas
+    // DESCRIPTION : Generic simple data types used across all the schemas
+    //------------------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Provide description to all in future !!!!
+    //--------------------------------------------------------
+    <type name="SessionId" primitiveType="uint16"/>
+    <type name="SymbolId" primitiveType="uint16"/>
+    <type name="TradeId" primitiveType="uint16"/>
+    <type name="AskBest" primitiveType="float"/>
+    <type name="BidBest" primitiveType="float"/>
+    <type name="AskVolumeBest" primitiveType="uint16"/>
+    <type name="BidVolumeBest" primitiveType="uint16"/>
+    <type name="AskDepth" primitiveType="uint16" length="50"/>
+    <type name="BidDepth" primitiveType="uint16" length="50"/>
+    <type name="AskVolumeDepth" primitiveType="uint16" length="50"/>
+    <type name="BidVolumeDepth" primitiveType="uint16" length="50"/>
+    <type name="OrderRequestPrice" primitiveType="float"/>
+    <type name="OrderFillPrice" primitiveType="float"/>
+    <type name="OrderStopLossPrice" primitiveType="float"/>
+    <type name="OrderTakeProfitPrice" primitiveType="float"/>
+    <type name="OrderQuantity" primitiveType="float"/>
+    <type name="ServerProcessingMs" primitiveType="uint8"/>
+    <type name="OrderFillClosePrice" primitiveType="float"/>
+    <type name="OrderRequestClosePrice" primitiveType="float"/>
+    <type name="ExchangeId" primitiveType="uint16"/>
+    <type name="ExchangeName" primitiveType="char" length="20" characterEncoding="ASCII"/>
+    <type name="SecurityId" primitiveType="uint16"/>
+    <type name="SecurityName" primitiveType="char" length="20" characterEncoding="ASCII"/>
+    <type name="SessionPassword" primitiveType="char" length="20" characterEncoding="ASCII"/>
+    <type name="SessionHost" primitiveType="char" length="50" characterEncoding="ASCII"/>
+    <type name="SessionLogin" primitiveType="char" length="40" characterEncoding="ASCII"/>
+    <type name="SessionToken" primitiveType="char" length="100" characterEncoding="ASCII"/>
+    <type name="CompanyName" primitiveType="char" length="100" characterEncoding="ASCII"/>
+    <type name="TimestampEncoding" primitiveType="int64" semanticType="UTCTimestamp"/>
+    <type name="HealthCheckLatencyMs" primitiveType="int64"/>
+    <type name="SequenceNumber" primitiveType="uint16"/>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : Enums
+    // SCOPE : imported to all the schemas
+    // DESCRIPTION : Enum data types used across all the schemas
+    //------------------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Describes the way how to execute the order
+    //--------------------------------------------------------
+    <enum name="OrderExecutionType" encodingType="uint8">
+        <validValue name="MARKET" description="Execute instantly on the market price.">1</validValue>
+        <validValue name="LIMIT" description="Set the pending limit order">2</validValue>
+        <validValue name="STOP" description="Sell the pending stop order">3</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Buy or Sell, direction of order
+    //--------------------------------------------------------
+    <enum name="OrderDirectionType" encodingType="uint8">
+        <validValue name="BUY" description="Buy the security.">1</validValue>
+        <validValue name="SELL" description="Sell the security.">2</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The type of how to fill the order
+    //--------------------------------------------------------
+    <enum name="OrderFillType" encodingType="uint8">
+        <validValue name="GTC" description="Good Till Cancel.">1</validValue>
+        <validValue name="OPG" description="At the Opening.">2</validValue>
+        <validValue name="IOC" description="Immediate or Cancel.">3</validValue>
+        <validValue name="FOK" description="Fill or Kill.">4</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : All the responses that can appear after sending the order
+    //--------------------------------------------------------
+    <enum name="OrderProcessingResult" encodingType="uint8">
+        <validValue name="FILLED" description="Order filled.">1</validValue>
+        <validValue name="REQUOTE" description="Order rejected due to requote.">2</validValue>
+        <validValue name="TRADE_DISABLED" description="Order rejected due to trade disabled on account.">3</validValue>
+        <validValue name="TIMEOUT" description="Timeout during order processing.">4</validValue>
+        <validValue name="WRONG_SYMBOL" description="Order rejected due to wrong symbol.">5</validValue>
+        <validValue name="NOT_ENOUGH_MONEY" description="Order rejected due to not enough money in the account.">6</validValue>
+        <validValue name="MARKET_IS_CLOSED" description="Order rejected due to closed market.">7</validValue>
+        <validValue name="MODIFIED" description="Order modified.">8</validValue>
+        <validValue name="REJECTED" description="Order rejected.">9</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The reason of closing the order
+    //--------------------------------------------------------
+    <enum name="OrderCloseReason" encodingType="uint8">
+        <validValue name="TP_HIT" description="Order closed on take profit hit.">1</validValue>
+        <validValue name="SL_HIT" description="Order closed on stop loss hit.">2</validValue>
+        <validValue name="ON_REQUEST" description="Order closed manually on request.">3</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The result of market data subscription request
+    //--------------------------------------------------------
+    <enum name="SubscribeMDStatus" encodingType="uint8">
+        <validValue name="SUBSCRIBED">0</validValue>
+        <validValue name="UNSUBSCRIBED">1</validValue>
+        <validValue name="REJECTED">2</validValue>
+        <validValue name="ALREADY_SUBSCRIBED">3</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The subscription level type when requesting a market data subscription
+    //--------------------------------------------------------
+    <enum name="MarketDataSubscriptionLevel" encodingType="uint8">
+        <validValue name="LEVEL_1">0</validValue>
+        <validValue name="LEVEL_2">1</validValue>
+    </enum>
+    
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The status of session connection afte connect request
+    //--------------------------------------------------------
+    <enum name="SessionConnectStatus" encodingType="uint8">
+        <validValue name="CONNECTED">0</validValue>
+        <validValue name="DISCONNECTED">1</validValue>
+        <validValue name="TIME_OUT">2</validValue>
+        <validValue name="WRONG_CREDENTIALS">3</validValue>
+        <validValue name="ALREADY_CONNECTED">4</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Session account type
+    //--------------------------------------------------------
+    <enum name="SessionAccountType" encodingType="uint8">
+        <validValue name="LIVE">0</validValue>
+        <validValue name="DEMO">1</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Enable or disable SSL encyrption for network traffic
+    //--------------------------------------------------------
+    <enum name="SslEncryption" encodingType="uint8">
+        <validValue name="ENABLED">0</validValue>
+        <validValue name="DISABLED">1</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : The list of supported rithmic data centers
+    //--------------------------------------------------------
+    <enum name="RithmicServerType" encodingType="uint8">
+        <validValue name="RITHMIC01">0</validValue>
+        <validValue name="RITHMIC_DEMO">1</validValue>
+        <validValue name="RITHMIC_GERMANY">2</validValue>
+        <validValue name="RITHMIC_DEMO_SINGAPORE">3</validValue>
+        <validValue name="RITHMIC_DEMO_HONK_KONG">4</validValue>
+        <validValue name="RITHMIC_DEMO_CHICAGO_AREA">5</validValue>
+        <validValue name="RITHMIC_DEMO_CHICAGO_AREA2">6</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="NetworkTestFlag" encodingType="uint8">
+        <validValue name="NOT_CHECKED">0</validValue>
+        <validValue name="CHECKED">1</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="FXBoxEngine" encodingType="uint8">
+        <validValue name="SESSION">0</validValue>
+        <validValue name="MDE">1</validValue>
+        <validValue name="TDE">2</validValue>
+        <validValue name="ALGO">3</validValue>
+        <validValue name="JOURNAL">4</validValue>
+        <validValue name="AGENT">5</validValue>
+        <validValue name="AGENT_HUB">6</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="StreamServer" encodingType="uint8">
+        <validValue name="SESSION_SERVER">0</validValue>
+        <validValue name="MDE_SERVER">1</validValue>
+        <validValue name="TDE_SERVER">2</validValue>
+        <validValue name="ALGO_SERVER">3</validValue>
+        <validValue name="JOURNAL_SERVER">4</validValue>
+        <validValue name="AGENT_HUB_SERVER">5</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="StreamClient" encodingType="uint8">
+        <validValue name="SESSION_CLIENT">0</validValue>
+        <validValue name="MDE_CLIENT">1</validValue>
+        <validValue name="TDE_CLIENT">2</validValue>
+        <validValue name="ALGO_CLIENT">3</validValue>
+        <validValue name="JOURNAL_CLIENT">4</validValue>
+        <validValue name="AGENT_HUB_CLIENT">5</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="StreamHealthStatus" encodingType="uint8">
+        <validValue name="CONNECTED">0</validValue>
+        <validValue name="DISCONNECTED">1</validValue>
+        <validValue name="HEALTHY">2</validValue>
+        <validValue name="PROCESSING">3</validValue>
+        <validValue name="TIMEOUT">4</validValue>
+    </enum>
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="ServerSessionRegisterStatus" encodingType="uint8">
+        <validValue name="REGISTERED">0</validValue>
+    </enum>
+    
+
+    //--------------------------------------------------------
+    // DESCRIPTION : Used for testing the network connection
+    //--------------------------------------------------------
+    <enum name="IsDummy" encodingType="uint8">
+        <validValue name="DUMMY">0</validValue>
+        <validValue name="PRODUCTION">1</validValue>
+    </enum>
+    
+    
+</types>

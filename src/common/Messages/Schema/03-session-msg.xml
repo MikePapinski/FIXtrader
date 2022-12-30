@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   package="MsgSchema"
+                   id="3"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Schema for managing session connections."
+                   byteOrder="littleEndian">
+    //------------------------------------------------------------------------------------------------------------------
+    // MANDATORY : Import all the common generic data types for sbe message construction
+    //------------------------------------------------------------------------------------------------------------------
+    <xi:include href="common-types.xml"/>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : Session
+    // SCOPE : Session Engine
+    // DESCRIPTION : Messages for manipulating the trading and market sessions in Session Engine
+    //------------------------------------------------------------------------------------------------------------------
+    <sbe:message name="TestSchemaMsgSession" id="1" description="just test msg">
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 2
+    // Source     : Response from Session Engine
+    // Purpose    : Response on Session connect request
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SessionConnectResponseMsg" id="2" description="Connect response from session server">
+        <field name="sessionConnectStatus" id="1" type="SessionConnectStatus"/>
+        <field name="sessionId" id="2" type="SessionId"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 3
+    // Source     : Send from Agent Engine
+    // Purpose    : Send to disconnect the session from the network
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SessionDisconnectMsg" id="3" description="Disconnect from session server">
+        <field name="sessionId" id="1" type="SessionId"/>
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 4
+    // Source     : Response from Session Engine
+    // Purpose    : Response on Session disconnect request
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SessionDisconnectResponseMsg" id="4" description="Disconnect response from session server">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="sessionConnectStatus" id="2" type="SessionConnectStatus"/>
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 5
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with MT4
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionMT4Msg" id="5" description="Connection for MT4">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="int32"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="host" id="4" type="SessionHost"/>
+        <field name="port" id="5" type="int32"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 6
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with MT5
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionMT5Msg" id="6" description="Connection for MT5">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="int32"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="host" id="4" type="SessionHost"/>
+        <field name="port" id="5" type="int32"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 7
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with ArkTrader
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionArkTraderMsg" id="7" description="Connection for ArkTrader">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="SessionLogin"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="companyName" id="4" type="CompanyName"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 8
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with LmaxWebSocket
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionLmaxWebSocketMsg" id="8" description="Connection for LmaxWebSocket">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="dataFeedHost" id="2" type="SessionHost"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 9
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with LmaxApi
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionLmaxApiMsg" id="9" description="Connection for LmaxApi">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="SessionLogin"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="host" id="4" type="SessionHost"/>
+        <field name="sessionType" id="5" type="SessionAccountType"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 10
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with Rithmic
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionRithmicMsg" id="10" description="Connection for Rithmic">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="SessionLogin"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="server" id="4" type="RithmicServerType"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 11
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with GainFutureFixFast
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionGainFutureFixFastMsg" id="11" description="Connection for GainFutureFixFast">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="SessionLogin"/>
+        <field name="password" id="3" type="SessionPassword"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 12
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with SaxoBankApi
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SaxoBankApiMsg" id="12" description="Connection for SaxoBankApi">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="sessionToken" id="2" type="SessionToken"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 13
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with BJFfeed
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionBJFfeedMsg" id="13" description="Connection for BJFfeed">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="login" id="2" type="SessionLogin"/>
+        <field name="password" id="3" type="SessionPassword"/>
+        <field name="host" id="4" type="SessionHost"/>
+        <field name="port" id="5" type="uint8"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 14
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with CTraderFix
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionCTraderFixMsg" id="14" description="Connection for CTraderFix">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="senderCompIdQuote" id="2" type="SessionLogin"/>
+        <field name="senderCompIdTrade" id="3" type="SessionLogin"/>
+        <field name="targetCompIdQuote" id="4" type="SessionLogin"/>
+        <field name="targetCompIdTrade" id="5" type="SessionLogin"/>
+        <field name="hostQuote" id="6" type="SessionHost"/>
+        <field name="hostTrade" id="7" type="SessionHost"/>
+        <field name="portQuote" id="8" type="uint16"/>
+        <field name="portTrade" id="9" type="uint16"/>
+        <field name="loginQuote" id="10" type="uint16"/>
+        <field name="loginTrade" id="11" type="uint16"/>
+        <field name="passwordQuote" id="12" type="SessionPassword"/>
+        <field name="passwordTrade" id="13" type="SessionPassword"/>
+        <field name="useSsl" id="14" type="SslEncryption"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 15
+    // Source     : Incoming from Agent
+    // Purpose    : Send for initialize connection with OneZeroFix
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ConnectSessionOneZeroFixMsg" id="15" description="Connection for OneZeroFix">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="senderCompIdQuote" id="2" type="SessionLogin"/>
+        <field name="senderCompIdTrade" id="3" type="SessionLogin"/>
+        <field name="targetCompIdQuote" id="4" type="SessionLogin"/>
+        <field name="targetCompIdTrade" id="5" type="SessionLogin"/>
+        <field name="hostQuote" id="6" type="SessionHost"/>
+        <field name="hostTrade" id="7" type="SessionHost"/>
+        <field name="portQuote" id="8" type="uint16"/>
+        <field name="portTrade" id="9" type="uint16"/>
+        <field name="loginQuote" id="10" type="uint16"/>
+        <field name="loginTrade" id="11" type="uint16"/>
+        <field name="passwordQuote" id="12" type="SessionPassword"/>
+        <field name="passwordTrade" id="13" type="SessionPassword"/>
+        <field name="useSsl" id="14" type="SslEncryption"/>
+    </sbe:message>
+
+
+
+    //------------------------------------------------------------------------------------------------------------------
+    // END OF SECTION
+    //------------------------------------------------------------------------------------------------------------------
+</sbe:messageSchema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   package="MsgSchema"
+                   id="4"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Schema for manipulating the algo strategies."
+                   byteOrder="littleEndian">
+    //------------------------------------------------------------------------------------------------------------------
+    // MANDATORY : Import all the common generic data types for sbe message construction
+    //------------------------------------------------------------------------------------------------------------------
+    <xi:include href="common-types.xml"/>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : ALGO
+    // SCOPE : ALGO Engine
+    // DESCRIPTION : Used for turning on, off and monitoring the algorithmic strategies
+    //------------------------------------------------------------------------------------------------------------------
+    <sbe:message name="TestSchemaMsgAlgo" id="1" description="just test msg">
+    </sbe:message>
+    
+
+    //------------------------------------------------------------------------------------------------------------------
+    // END OF SECTION
+    //------------------------------------------------------------------------------------------------------------------
+</sbe:messageSchema>

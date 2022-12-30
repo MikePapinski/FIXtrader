@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   package="MsgSchema"
+                   id="6"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Schema for manipulating the algo strategies."
+                   byteOrder="littleEndian">
+    //------------------------------------------------------------------------------------------------------------------
+    // MANDATORY : Import all the common generic data types for sbe message construction
+    //------------------------------------------------------------------------------------------------------------------
+    <xi:include href="common-types.xml"/>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : CLOUD GATEWAY
+    // SCOPE : CLOUD GATEWAY
+    // DESCRIPTION : Used for communication between cloud and agent engine, mostly to monitor the health of connection
+    //------------------------------------------------------------------------------------------------------------------
+
+    <sbe:message name="TestSchemaMsgStream" id="1" description="just test msg">
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="HealthCheckMsg" id="2" description="Test the Cloud Gateway connections.">
+        <field name="sequenceNumber" id="1" type="SequenceNumber"/>
+        <field name="fxBoxEngine" id="2" type="FXBoxEngine"/>
+        <field name="streamClient" id="3" type="StreamClient"/>
+        <field name="streamServer" id="4" type="StreamServer"/>
+        <field name="timestampClientSend" id="5" type="TimestampEncoding" semanticType="UTCTimestamp"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="HealthCheckMsgResult" id="3" description="Test the Cloud Gateway connections.">
+        <field name="sequenceNumber" id="1" type="SequenceNumber"/>
+        <field name="fxBoxEngine" id="2" type="FXBoxEngine"/>
+        <field name="streamClient" id="3" type="StreamClient"/>
+        <field name="streamServer" id="4" type="StreamServer"/>
+        <field name="timestampClientSend" id="5" type="TimestampEncoding" semanticType="UTCTimestamp"/>
+        <field name="timestampServerReceive" id="6" type="TimestampEncoding" semanticType="UTCTimestamp"/>
+        <field name="timestampClientReceive" id="7" type="TimestampEncoding" semanticType="UTCTimestamp"/>
+    </sbe:message>
+
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="StartMeasuringHealthCheckReport" id="4" description="Test the Cloud Gateway connections.">
+        <field name="sequenceNumber" id="1" type="SequenceNumber"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="HealthCheckReportMsg" id="5" description="Test the Cloud Gateway connections.">
+        <field name="sequenceNumber" id="1" type="SequenceNumber"/>
+        <field name="agentToJournal" id="2" type="HealthCheckLatencyMs"/>
+        <field name="algoToJournal" id="3" type="HealthCheckLatencyMs"/>
+        <field name="sessionToJournal" id="4" type="HealthCheckLatencyMs"/>
+        <field name="algoToMde" id="5" type="HealthCheckLatencyMs"/>
+        <field name="algoToTde" id="6" type="HealthCheckLatencyMs"/>
+        <field name="agentToSession" id="7" type="HealthCheckLatencyMs"/>
+        <field name="agentToAlgo" id="8" type="HealthCheckLatencyMs"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="RegisterServerSessionMsg" id="6" description="Test the Cloud Gateway connections.">
+        <field name="streamServer" id="1" type="StreamServer"/>
+        <field name="fxBoxEngine" id="2" type="FXBoxEngine"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 1
+    // Source     : Round trip between Cloud Gateway and Agent Engine
+    // Purpose    : Send mock message to test the connection over Cloud Gateway
+    //---------------------------------------------------------------------------------
+    <sbe:message name="RegisterServerSessionMsgResult" id="7" description="Test the Cloud Gateway connections.">
+        <field name="streamServer" id="1" type="StreamServer"/>
+        <field name="fxBoxEngine" id="2" type="FXBoxEngine"/>
+        <field name="serverSessionRegisterStatus" id="3" type="ServerSessionRegisterStatus"/>
+    </sbe:message>
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // END OF SECTION
+    //------------------------------------------------------------------------------------------------------------------
+</sbe:messageSchema>

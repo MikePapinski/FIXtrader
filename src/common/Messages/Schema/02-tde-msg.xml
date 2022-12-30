@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   package="MsgSchema"
+                   id="2"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Schema for Trade Data stream."
+                   byteOrder="littleEndian">
+    //------------------------------------------------------------------------------------------------------------------
+    // MANDATORY : Import all the common generic data types for sbe message construction
+    //------------------------------------------------------------------------------------------------------------------
+    <xi:include href="common-types.xml"/>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : TDE
+    // SCOPE : Session Engine
+    // DESCRIPTION : Used for submit and monitoring of trade data
+    //------------------------------------------------------------------------------------------------------------------
+    <sbe:message name="TestSchemaMsgTde" id="1" description="just test msg">
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 2
+    // Source     : Send from Algo Engine
+    // Purpose    : Send on requesting a new trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="NewOrderMsg" id="2" description="Send new trade order.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderDirectionType" id="4" type="OrderDirectionType"/>
+        <field name="orderExecutionType" id="5" type="OrderExecutionType"/>
+        <field name="orderFillType" id="6" type="OrderFillType"/>
+        <field name="orderRequestPrice" id="7" type="OrderRequestPrice"/>
+        <field name="orderStopLossPrice" id="8" type="OrderStopLossPrice"/>
+        <field name="orderTakeProfitPrice" id="9" type="OrderTakeProfitPrice"/>
+        <field name="orderQuantity" id="10" type="OrderQuantity"/>
+        <field name="timestampQuote" id="13" type="TimestampEncoding"/>
+        
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 3
+    // Source     : Response from Session Engine
+    // Purpose    : Server respone on requesting a new trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="NewOrderResponseMsg" id="3" description="Send new trade order server respone.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderDirectionType" id="4" type="OrderDirectionType"/>
+        <field name="orderExecutionType" id="5" type="OrderExecutionType"/>
+        <field name="orderFillType" id="6" type="OrderFillType"/>
+        <field name="orderRequestPrice" id="7" type="OrderRequestPrice"/>
+        <field name="orderFillPrice" id="8" type="OrderFillPrice"/>
+        <field name="orderStopLossPrice" id="9" type="OrderStopLossPrice"/>
+        <field name="orderTakeProfitPrice" id="10" type="OrderTakeProfitPrice"/>
+        <field name="orderQuantity" id="11" type="OrderQuantity"/>
+        <field name="orderProcessingResult" id="12" type="OrderProcessingResult"/>
+        <field name="timestampQuote" id="13" type="TimestampEncoding"/>
+        <field name="timestampTradeSend" id="14" type="TimestampEncoding"/>
+        <field name="timestampTradeResponse" id="15" type="TimestampEncoding"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 4
+    // Source     : Send from Algo Engine
+    // Purpose    : Send on requesting a modification of existing trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ModifyOrderMsg" id="4" description="Modify order.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderRequestPrice" id="4" type="OrderRequestPrice"/>
+        <field name="orderStopLossPrice" id="5" type="OrderStopLossPrice"/>
+        <field name="orderTakeProfitPrice" id="6" type="OrderTakeProfitPrice"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 5
+    // Source     : Response from Session Engine
+    // Purpose    : Server respone on requesting a modification of existing trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="ModifyOrderResponseMsg" id="5" description="Modify order server respone.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderRequestPrice" id="4" type="OrderRequestPrice"/>
+        <field name="orderStopLossPrice" id="5" type="OrderStopLossPrice"/>
+        <field name="orderTakeProfitPrice" id="6" type="OrderTakeProfitPrice"/>
+        <field name="orderProcessingResult" id="7" type="OrderProcessingResult"/>
+        <field name="serverProcessingMs" id="8" type="ServerProcessingMs"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 6
+    // Source     : Send from Session Data Layer
+    // Purpose    : Send on requesting a close of existing trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="CloseOrderMsg" id="6" description="Close order.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderRequestClosePrice" id="4" type="OrderRequestClosePrice"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 7
+    // Source     : Response from Session Engine
+    // Purpose    : Server respone on requesting a close of existing trade order
+    //---------------------------------------------------------------------------------
+    <sbe:message name="CloseOrderResponseMsg" id="7" description="Close order server respone.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="tradeId" id="3" type="TradeId"/>
+        <field name="orderRequestClosePrice" id="4" type="OrderRequestClosePrice"/>
+        <field name="orderFillClosePrice" id="5" type="OrderFillClosePrice"/>
+        <field name="orderProcessingResult" id="6" type="OrderProcessingResult"/>
+        <field name="serverProcessingMs" id="7" type="ServerProcessingMs"/>
+        <field name="orderCloseReason" id="8" type="OrderCloseReason"/>
+    </sbe:message>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // END OF SECTION
+    //------------------------------------------------------------------------------------------------------------------
+</sbe:messageSchema>

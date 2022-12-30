@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema xmlns:sbe="http://fixprotocol.io/2016/sbe"
+                   xmlns:xi="http://www.w3.org/2001/XInclude"
+                   package="MsgSchema"
+                   id="1"
+                   version="0"
+                   semanticVersion="5.2"
+                   description="Schema for Market Data stream."
+                   byteOrder="littleEndian">
+    //------------------------------------------------------------------------------------------------------------------
+    // MANDATORY : Import all the common generic data types for sbe message construction
+    //------------------------------------------------------------------------------------------------------------------
+    <xi:include href="common-types.xml"/>
+    
+    //------------------------------------------------------------------------------------------------------------------
+    // SECTION : MDE
+    // SCOPE : Session Engine
+    // DESCRIPTION : Used for streaming and managin stream of markat data
+    //------------------------------------------------------------------------------------------------------------------
+    <sbe:message name="TestSchemaMsgMde" id="1" description="just test msg">
+    </sbe:message>
+    
+    //---------------------------------------------------------------------------------
+    // Message ID : 2
+    // Source     : Published from Session Engine via MDE stream
+    // Purpose    : Send on new market data from active sessions with level 1 subscription
+    //---------------------------------------------------------------------------------
+    <sbe:message name="NewMarketDataLevelOneMsg" id="2" description="New market data arrived with level 1 depth.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="askBest" id="3" type="AskBest"/>
+        <field name="bidBest" id="4" type="BidBest"/>
+        <field name="askVolumeBest" id="5" type="AskVolumeBest"/>
+        <field name="bidVolumeBest" id="6" type="BidVolumeBest"/>
+        <field name="timestamp" id="7" type="TimestampEncoding"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 3
+    // Source     : Published from Session Engine via MDE stream
+    // Purpose    : Send on new market data from active sessions with level 2 subscription
+    //---------------------------------------------------------------------------------
+    <sbe:message name="NewMarketDataLevelTwoMsg" id="3" description="New market data arrived with level 2 depth.">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="askDepth" id="3" type="AskDepth"/>
+        <field name="bidDepth" id="4" type="BidDepth"/>
+        <field name="askVolumeDepth" id="5" type="AskVolumeDepth"/>
+        <field name="bidVolumeDepth" id="6" type="BidVolumeDepth"/>
+        <field name="timestamp" id="7" type="TimestampEncoding"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 4
+    // Source     : Incoming from Algo Engine via MDE stream
+    // Purpose    : Send to provide quotes for specific symbol
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SubscribeMarketDataMsg" id="4" description="Subscription message for specific symbol">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="securityName" id="3" type="SecurityName"/>
+        <field name="securityId" id="4" type="SecurityId"/>
+        <field name="exchangeId" id="5" type="ExchangeId"/>
+        <field name="exchangeName" id="6" type="ExchangeName"/>
+        <field name="subscriptionLevel" id="7" type="MarketDataSubscriptionLevel"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 5
+    // Source     : Response from Session Engine via MDE stream
+    // Purpose    : Subscription response with status
+    //---------------------------------------------------------------------------------
+    <sbe:message name="SubscribeMarketDataResponseMsg" id="5" description="Subscription msg response">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="securityName" id="3" type="SecurityName"/>
+        <field name="securityId" id="4" type="SecurityId"/>
+        <field name="exchangeId" id="5" type="ExchangeId"/>
+        <field name="exchangeName" id="6" type="ExchangeName"/>
+        <field name="subscriptionLevel" id="7" type="MarketDataSubscriptionLevel"/>
+        <field name="subscribeMDStatus" id="8" type="SubscribeMDStatus"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 6
+    // Source     : Incoming from Algo Engine via MDE stream
+    // Purpose    : Send to stop quotes for specific symbol
+    //---------------------------------------------------------------------------------
+    <sbe:message name="UnsubscribeMarketDataMsg" id="6" description="Unsubscription message for specific symbol">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="securityName" id="3" type="SecurityName"/>
+        <field name="securityId" id="4" type="SecurityId"/>
+        <field name="exchangeId" id="5" type="ExchangeId"/>
+        <field name="exchangeName" id="6" type="ExchangeName"/>
+    </sbe:message>
+
+    //---------------------------------------------------------------------------------
+    // Message ID : 7
+    // Source     : Response from Session Engine via MDE stream
+    // Purpose    : Unsubscription response with status
+    //---------------------------------------------------------------------------------
+    <sbe:message name="UnsubscribeMarketDataResponseMsg" id="7" description="Unsubscription msg response">
+        <field name="sessionId" id="1" type="SessionId"/>
+        <field name="symbolId" id="2" type="SymbolId"/>
+        <field name="securityName" id="3" type="SecurityName"/>
+        <field name="securityId" id="4" type="SecurityId"/>
+        <field name="exchangeId" id="5" type="ExchangeId"/>
+        <field name="exchangeName" id="6" type="ExchangeName"/>
+        <field name="subscribeMDStatus" id="7" type="SubscribeMDStatus"/>
+    </sbe:message>
+
+    //------------------------------------------------------------------------------------------------------------------
+    // END OF SECTION
+    //------------------------------------------------------------------------------------------------------------------
+</sbe:messageSchema>
